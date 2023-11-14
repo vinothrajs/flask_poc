@@ -1,0 +1,17 @@
+{
+    "routes": [
+      {
+        "name": "home",
+        "url_prefix": "/",
+        "module": "pages.home",
+        "template": "home.html"
+      },
+      {
+        "name": "about",
+        "url_prefix": "/about",
+        "module": "pages.about",
+        "template": "about.html"
+      }
+    ]
+  }
+  

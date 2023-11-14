@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+    <h2>Welcome to the Home Page</h2>
+    <p>This is the home page content.</p>
+    <div id="buttonContainer"></div>
+
+    {% block javascript %}
+        <script>
+            $(function () {
+                $("#buttonContainer").dxButton({
+                    text: "Click me!",
+                    onClick: function () {
+                        alert("Hello world!");
+                    }
+                });
+            });
+        </script>
+    {% endblock %}
+
+
+{% endblock %}

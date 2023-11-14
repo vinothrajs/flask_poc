@@ -1,0 +1,9 @@
+
+# generated code
+from flask import render_template, Blueprint
+
+product_bp = Blueprint('product', __name__)
+
+@product_bp.route('/{{route_nmae}}')
+def products():
+    return render_template('{{html_file_name}}.html')
