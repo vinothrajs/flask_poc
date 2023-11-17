@@ -154,6 +154,7 @@ const employees = [{
     "ReportsTo": 5
 }];
 $(function() {
+    //fetch 
     const dataGrid = $("#dataGrid").dxDataGrid({
         dataSource: employees,
         keyExpr: "EmployeeID",
@@ -170,11 +171,6 @@ $(function() {
                 type: "required"
             }],
             fixed: true
-        }, {
-            dataField: "Position",
-            validationRules: [{
-                type: "required"
-            }]
         }, {
             dataField: "BirthDate", 
             dataType: "date",

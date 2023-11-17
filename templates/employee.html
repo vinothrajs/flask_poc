@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Orger Page{% endblock %}
 {% block content %}
-    <h2>Welcome to the Order Page</h2>
-    <p>This is the Order page content.</p>
+
 
     <div id="app-container">
         <div id="dataGrid"></div>
         <p id="selected-employee"></p>
     </div>
     {% block javascript %}
-    <script src="{{url_for('static', filename='js/employee.js')}}"></script>
+        <script src="{{url_for('static', filename='js/employee.js')}}"></script>
     {% endblock %}
 {% endblock %}

@@ -21,15 +21,19 @@ def generate():
 
         # Define variables for template rendering
         variables = {
-                'route_nmae':'product',
-                'html_file_name':'product',
+                'table_name':'',
+                'route_nmae':'order',
+                'html_file_name':'order',
+                'fun_name' : 'orders',
+                'user_custom_code_loigic_before_save' :'fecth()=>()nind',
+                'user_custom_code_loigic_after_save' :''
         }
 
         # Render the template with variables
         rendered_code = template.render(variables)
 
         # Specify the file path to save the generated Python code
-        new_file_path = os.path.join(script_dir, 'product.py')
+        new_file_path = os.path.join(script_dir, 'order.py')
 
         # Write the rendered code to a Python file
         with open(new_file_path, 'w') as python_file:

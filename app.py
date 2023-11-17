@@ -1,11 +1,10 @@
-from flask import Flask, render_template , Blueprint
-import json
+from flask import Flask, Blueprint
 
 import importlib
 
 app = Flask(__name__)
 
-blueprint_modules = ["about", "home", "employee", "generate", "product"]
+blueprint_modules = ["about", "home", "employee", "generate", "product" , "order" ,"couponcodes"]
 # Dynamic import and registration of blueprints
 # Dynamic import and registration of blueprints with error handling
 for blueprint_module in blueprint_modules:
@@ -15,8 +14,9 @@ for blueprint_module in blueprint_modules:
         blueprint = getattr(module, f"{blueprint_module}_bp")
         app.register_blueprint(blueprint)
     except ImportError as e:
-        print(f"Error importing {module_path}: {e}")
-
+        print(f"Error importing bluprint {module_path}: {e}")
+        
+app.config['SECRET_KEY'] = 'your_secret_key'
 ## static Import & Registertaion 
 # from pages import about , home ,employee , generate , product
 # app.register_blueprint(about.about_bp)

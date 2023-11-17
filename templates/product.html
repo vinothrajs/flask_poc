@@ -3,14 +3,19 @@
     Product Page
 {% endblock %}
 {% block content %}
-    <h2>Welcome to the Product Page</h2>
-    <p>This is the Product page content.</p>
-    <button type="button" onclick="prod.saveData()">Click Me!</button>
+<h2>Grid with server side rendering </h2>
+    <button type="button" onclick="ProductManager.showdata()">Click Me!</button>
+    <button type="button" id="newbutton">newbutton Click Me!</button>
     <p id="showoutput"></p>
 
-    <button onclick="prod.getdata()">Show List</button>
+    <button onclick="ProductManager.getdata()">Show List</button>
     <div id="foo">
+
     </div>
+
+    <div class="demo-container">
+        <div id="gridContainer"></div>
+      </div>
     {% block javascript %}
             <script src="{{url_for('static', filename='js/product.js')}}"></script>
     {% endblock %}
