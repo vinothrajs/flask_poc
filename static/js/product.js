@@ -92,10 +92,12 @@ class Human {
 
 //documet ready
  $(document).ready(function () {
+
   $('#newbutton').click(function (e) {
     e.preventDefault();
     alert("newbutton clieck")
   });
+  
  });
 
 
@@ -141,6 +143,7 @@ class Human {
         },
         timeout: 5000,
       });
+     
 
       return deferred.promise();
     },

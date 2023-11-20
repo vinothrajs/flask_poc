@@ -3,6 +3,13 @@
     About Page
 {% endblock %}
 {% block content %}
-<h2>About Us</h2>
-<p>This is the about page content.</p>
+<h2>Grid with server side rendering </h2>
+ 
+    <div class="demo-container">
+        <div id="gridContainer"></div>
+      </div>
+    {% block javascript %}
+            <script src="{{url_for('static', filename='js/about.js')}}"></script>
+    {% endblock %}
 {% endblock %}
+
