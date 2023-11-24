@@ -103,8 +103,8 @@ def get_couponcodes_json_paging():
         take = int(request.args.get('take', 2))
         # check if sort is passing on request 
         if not request.args.get('sort'):
-              url_with_pagination = f'{api_url}?pagination[start]={skip}&pagination[limit]={take}'              
-              print(url_with_pagination)
+              url_with_pagination = f'{api_url}?pagination[start]={skip}&pagination[limit]={take}'            
+             
         else :
               sort_input = request.args.get('sort') 
               sortedjson = json.loads(sort_input)          
@@ -120,11 +120,8 @@ def get_couponcodes_json_paging():
                 url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}&sort={fieldname}:{order}'
               else:
                   multiple_url = []
-                  for idx,multi_Sort_values in enumerate(sortedjson):
-                      print(idx)
-                      print(multi_Sort_values)
-                      fieldname = multi_Sort_values.get('selector')
-                      print(fieldname) 
+                  for idx,multi_Sort_values in enumerate(sortedjson):                     
+                      fieldname = multi_Sort_values.get('selector')                    
                       sorting = multi_Sort_values.get('desc')
                       if sorting:
                           order = "desc"
@@ -132,8 +129,7 @@ def get_couponcodes_json_paging():
                           order = "asc"
                       url = f'&sort[{idx}]={fieldname}:{order}'
                     
-                      multiple_url.append(url)
-                    
+                      multiple_url.append(url)                 
                       
                       
                   
@@ -186,15 +182,43 @@ def get_couponcodes_json_paging():
                 if request.args.get('sort') and request.args.get('filter') :                   
                     sort_input = request.args.get('sort') 
                     sortedjson = json.loads(sort_input)
-                    for dictionary_fields in sortedjson:
-                        fieldname = dictionary_fields.get('selector')
-                        sorting = dictionary_fields.get('desc')
-                        if sorting:
-                            order = "desc"
-                        else:
-                             order="asc"
+                    if len(sortedjson) == 1:              
+                        for dictionary_fields in sortedjson:
+                            fieldname = dictionary_fields.get('selector')
+                            sorting = dictionary_fields.get('desc')
+                            if sorting:
+                                order = "desc"
+                            else:
+                                order="asc"             
+               
+                        url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}&sort={fieldname}:{order}{filter_params}'
+                        
+                    else:
+                        multiple_url = []
+                        for idx,multi_Sort_values in enumerate(sortedjson):                     
+                            fieldname = multi_Sort_values.get('selector')
+                            sorting = multi_Sort_values.get('desc')
+                            if sorting:
+                                order = "desc"
+                            else:
+                                order = "asc"
+                        
+                            url = f'&sort[{idx}]={fieldname}:{order}'
+                            multiple_url.append(url)                  
+                        sort_params = ''.join(multiple_url)                      
+                 
+                        url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}{sort_params}{filter_params}' 
+                                           
+          
+                    # for dictionary_fields in sortedjson:
+                    #     fieldname = dictionary_fields.get('selector')
+                    #     sorting = dictionary_fields.get('desc')
+                    #     if sorting:
+                    #         order = "desc"
+                    #     else:
+                    #          order="asc"
                             
-                    url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}&sort={fieldname}:{order}{filter_params}'                
+                    # url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}&sort={fieldname}:{order}{filter_params}'                
                                        
                 else:                  
                     url_with_pagination = url_with_pagination = f'{api_url}?pagination[start]={skip}&pagination[limit]={take}{filter_params}'                
@@ -224,21 +248,40 @@ def get_couponcodes_json_paging():
                   
                     sort_input = request.args.get('sort') 
                     sortedjson = json.loads(sort_input)
-                    for dictionary_fields in sortedjson:
-                        fieldname = dictionary_fields.get('selector')
-                        sorting = dictionary_fields.get('desc')
-                        if sorting:
-                            order = "desc"
-                        else:
-                             order="asc"           
-                   
-                    url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}&sort={fieldname}:{order}&filters[{filteredjson[0]}][{operation}]={filteredjson[2]}'
+                    if len(sortedjson) == 1:              
+                        for dictionary_fields in sortedjson:
+                            fieldname = dictionary_fields.get('selector')
+                            sorting = dictionary_fields.get('desc')
+                            if sorting:
+                                order = "desc"
+                            else:
+                                order="asc"             
+               
+                        url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}&sort={fieldname}:{order}&filters[{filteredjson[0]}][{operation}]={filteredjson[2]}'
+                        
+                    else:
+                        multiple_url = []
+                        for idx,multi_Sort_values in enumerate(sortedjson):                     
+                            fieldname = multi_Sort_values.get('selector')
+                            sorting = multi_Sort_values.get('desc')
+                            if sorting:
+                                order = "desc"
+                            else:
+                                order = "asc"
+                        
+                            url = f'&sort[{idx}]={fieldname}:{order}'
+                            multiple_url.append(url)                  
+                        sort_params = ''.join(multiple_url)
+                      
+                 
+                        url_with_pagination = f'{api_url}?pagination[page]={skip}&pagination[pageSize]={take}{sort_params}&filters[{filteredjson[0]}][{operation}]={filteredjson[2]}'                     
+          
                     
                                        
                 else :
                    
                     url_with_pagination = url_with_pagination = f'{api_url}?pagination[start]={skip}&pagination[limit]={take}&filters[{filteredjson[0]}][{operation}]={filteredjson[2]}'
-                 
+             
         # Make a request to the API    
         response = requests.get(url_with_pagination, headers=headers)          
      
